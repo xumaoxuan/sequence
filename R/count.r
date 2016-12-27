@@ -14,8 +14,8 @@ count<-function(InData,element)
 {
   if(is.null(InData)) stop("'InData' is NULL")
   if(!is.numeric(InData)) stop("'InData' must be number")
-
   if(missing(element)) stop("the second parameter(to be found)must be exist")
+  InData<-na.omit(InData)
   times=sum(InData==element)
   if(is.na(times))
     return(paste("no",substitute(element),"found in InData"))

@@ -14,7 +14,10 @@ bintimes <- function(InData,binseq)
   if(is.null(InData)) stop("'InData' is NULL")
   if(!is.numeric(InData)) stop("'InData' must be number")
   if(!is.vector(binseq)) stop("binseq should be a vector")
-  binseq <- c(0,binseq,max(InData))
-  sector=cut(InData,breaks=binseq)
+  InData<-na.omit(InData)
+  binseq<-na.omit(binseq)
+  binseq <- binseq[! (binseq<min(InData) | binseq>max(InData) )]
+  binseq <- c(min(InData),binseq,max(InData))
+  sector=cut(InData,breaks=binseq,include.lowest=TRUE)
   return(data.frame(table(sector)))
 }
